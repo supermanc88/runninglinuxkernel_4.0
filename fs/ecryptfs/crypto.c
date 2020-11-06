@@ -566,9 +566,9 @@ int ecryptfs_decrypt_page(struct page *page)
 		&(ecryptfs_inode_to_private(ecryptfs_inode)->crypt_stat);
 	BUG_ON(!(crypt_stat->flags & ECRYPTFS_ENCRYPTED));
 
-	lower_offset = lower_offset_for_page(crypt_stat, page);
+	lower_offset = lower_offset_for_page(crypt_stat, page);			// 返回文件开始位置 8192
 	page_virt = kmap(page);
-	rc = ecryptfs_read_lower(page_virt, lower_offset, PAGE_CACHE_SIZE,
+	rc = ecryptfs_read_lower(page_virt, lower_offset, PAGE_CACHE_SIZE,			// PAGE_CACHE_SIZE 4096
 				 ecryptfs_inode);
 	kunmap(page);
 	if (rc < 0) {

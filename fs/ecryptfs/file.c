@@ -186,7 +186,7 @@ out:
  *
  * Returns zero on success; non-zero otherwise
  */
-static int ecryptfs_open(struct inode *inode, struct file *file)
+static int ecryptfs_open(struct inode *inode, struct file *file)			// 返回file，越上层就使用file，inode只是内核内部使用
 {
 	int rc = 0;
 	struct ecryptfs_crypt_stat *crypt_stat = NULL;
@@ -229,7 +229,7 @@ static int ecryptfs_open(struct inode *inode, struct file *file)
 		goto out_put;
 	}
 	ecryptfs_set_file_lower(
-		file, ecryptfs_inode_to_private(inode)->lower_file);
+		file, ecryptfs_inode_to_private(inode)->lower_file);		// 通过inode找到底层lowerfile 并给file设置上
 	if (d_is_dir(ecryptfs_dentry)) {
 		ecryptfs_printk(KERN_DEBUG, "This is a directory\n");
 		mutex_lock(&crypt_stat->cs_mutex);

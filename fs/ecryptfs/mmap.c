@@ -275,7 +275,7 @@ out:
  *
  * Returns zero on success; non-zero otherwise
  */
-static int ecryptfs_write_begin(struct file *file,
+static int ecryptfs_write_begin(struct file *file,		// 这个函数的目的是给文件获取或创建一个page缓冲区
 			struct address_space *mapping,
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
@@ -335,7 +335,7 @@ static int ecryptfs_write_begin(struct file *file,
 				SetPageUptodate(page);
 			}
 		} else {
-			if (prev_page_end_size
+			if (prev_page_end_size						// 这段说明page是新创建的
 			    >= i_size_read(page->mapping->host)) {
 				zero_user(page, 0, PAGE_CACHE_SIZE);
 				SetPageUptodate(page);

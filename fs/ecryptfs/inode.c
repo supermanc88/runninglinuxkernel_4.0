@@ -94,7 +94,7 @@ static struct inode *__ecryptfs_get_inode(struct inode *lower_inode,
 		return ERR_PTR(-EXDEV);
 	if (!igrab(lower_inode))
 		return ERR_PTR(-ESTALE);
-	inode = iget5_locked(sb, (unsigned long)lower_inode,
+	inode = iget5_locked(sb, (unsigned long)lower_inode,			// 此函数会调用本文件系统的inode分配函数
 			     ecryptfs_inode_test, ecryptfs_inode_set,
 			     lower_inode);
 	if (!inode) {
@@ -189,7 +189,7 @@ ecryptfs_do_create(struct inode *directory_inode,
 
 	lower_dentry = ecryptfs_dentry_to_lower(ecryptfs_dentry);
 	lower_dir_dentry = lock_parent(lower_dentry);
-	rc = vfs_create(lower_dir_dentry->d_inode, lower_dentry, mode, true);
+	rc = vfs_create(lower_dir_dentry->d_inode, lower_dentry, mode, true);		// 打开底层文件系统的文件，没有就创建
 	if (rc) {
 		printk(KERN_ERR "%s: Failure to create dentry in lower fs; "
 		       "rc = [%d]\n", __func__, rc);

@@ -62,7 +62,7 @@ struct page *ecryptfs_get_locked_page(struct inode *inode, loff_t index)
  * the lower filesystem.  In OpenPGP-compatible mode, we operate on
  * entire underlying packets.
  */
-static int ecryptfs_writepage(struct page *page, struct writeback_control *wbc)
+static int ecryptfs_writepage(struct page *page, struct writeback_control *wbc)			// 写页数据到磁盘
 {
 	int rc;
 
@@ -280,7 +280,7 @@ static int ecryptfs_write_begin(struct file *file,		// 这个函数的目的是�
 			loff_t pos, unsigned len, unsigned flags,
 			struct page **pagep, void **fsdata)
 {
-	pgoff_t index = pos >> PAGE_CACHE_SHIFT;
+	pgoff_t index = pos >> PAGE_CACHE_SHIFT;			// 计算出页号,page结构中的index是映射到内存中的文件偏移，以页大小为单位
 	struct page *page;
 	loff_t prev_page_end_size;
 	int rc = 0;
@@ -335,7 +335,7 @@ static int ecryptfs_write_begin(struct file *file,		// 这个函数的目的是�
 				SetPageUptodate(page);
 			}
 		} else {
-			if (prev_page_end_size						// 这段说明page是新创建的
+			if (prev_page_end_size						// 这段说明page是新建的，前一个页面大小就已经比文件大小大了
 			    >= i_size_read(page->mapping->host)) {
 				zero_user(page, 0, PAGE_CACHE_SIZE);
 				SetPageUptodate(page);

@@ -269,7 +269,7 @@ ecryptfs_create(struct inode *directory_inode, struct dentry *ecryptfs_dentry,
 	struct inode *ecryptfs_inode;
 	int rc;
 
-	ecryptfs_inode = ecryptfs_do_create(directory_inode, ecryptfs_dentry,
+	ecryptfs_inode = ecryptfs_do_create(directory_inode, ecryptfs_dentry,		// 创建一个新的节点，i_ino和底层文件系统文件的i_ino相同
 					    mode);
 	if (unlikely(IS_ERR(ecryptfs_inode))) {
 		ecryptfs_printk(KERN_WARNING, "Failed to create file in"

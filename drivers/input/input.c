@@ -2415,7 +2415,7 @@ static int __init input_init(void)
 {
 	int err;
 
-	err = class_register(&input_class);
+	err = class_register(&input_class); // 将input类型注册到内核中
 	if (err) {
 		pr_err("unable to register input_dev class\n");
 		return err;
